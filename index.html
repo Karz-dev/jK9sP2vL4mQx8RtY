@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,537 +8,503 @@
 <title>Cookie Clicker</title>
 
 <style>
-    * {
-        box-sizing: border-box;
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at 20% 20%, #39220f 0%, transparent 30%),
+        radial-gradient(circle at 80% 80%, #2b160b 0%, transparent 30%),
+        #100b08;
+    color: white;
+    overflow-x: hidden;
+}
+
+.game {
+    width: 100%;
+    max-width: 1200px;
+    min-height: 100vh;
+    margin: auto;
+    padding: 30px 20px;
+    display: grid;
+    grid-template-columns: 1fr 390px;
+    gap: 30px;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 700px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 55px;
+    margin: 0 0 10px;
+    color: #ffbd45;
+    text-shadow:
+        0 4px 0 #8c4518,
+        0 0 20px rgba(255, 174, 52, 0.3);
+}
+
+.subtitle {
+    color: #c9a98a;
+    margin-bottom: 20px;
+}
+
+#score {
+    font-size: 55px;
+    font-weight: bold;
+    color: #ffd66b;
+    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+}
+
+#stats {
+    color: #c9b7a5;
+    font-size: 18px;
+    margin-bottom: 35px;
+}
+
+.cookie-wrapper {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cookie {
+    position: relative;
+    width: 310px;
+    height: 310px;
+
+    border-radius: 48% 52% 51% 49% / 51% 47% 53% 49%;
+
+    background:
+        radial-gradient(circle at 35% 25%, #ffd080 0 3%, transparent 4%),
+        radial-gradient(circle at 65% 70%, #b96b25 0 2%, transparent 3%),
+        radial-gradient(circle at 30% 70%, #e49a43 0 2%, transparent 3%),
+        linear-gradient(135deg, #d98732, #f3ad52 45%, #c87324);
+
+    border: 8px solid #8b471b;
+
+    box-shadow:
+        inset 15px 15px 25px rgba(255, 214, 135, 0.45),
+        inset -15px -18px 25px rgba(117, 49, 10, 0.35),
+        0 15px 35px rgba(0, 0, 0, 0.6);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.08s ease,
+        filter 0.15s ease;
+}
+
+.cookie:hover {
+    filter: brightness(1.08);
+}
+
+.cookie:active {
+    transform: scale(0.91);
+}
+
+.cookie.clicked {
+    animation: cookieBounce 0.15s ease;
+}
+
+@keyframes cookieBounce {
+    0% {
+        transform: scale(1);
     }
 
-    body {
-        margin: 0;
-        min-height: 100vh;
-        font-family: Arial, Helvetica, sans-serif;
-        background:
-            radial-gradient(circle at 20% 20%, #39220f 0%, transparent 30%),
-            radial-gradient(circle at 80% 80%, #2b160b 0%, transparent 30%),
-            #100b08;
-        color: white;
-        overflow-x: hidden;
+    50% {
+        transform: scale(0.88) rotate(-2deg);
     }
 
-    /* =========================
-       MAIN LAYOUT
-    ========================= */
+    100% {
+        transform: scale(1);
+    }
+}
+
+.chip {
+    position: absolute;
+    width: 32px;
+    height: 25px;
+    border-radius: 45%;
+    background: linear-gradient(135deg, #5b210e, #261006);
+
+    box-shadow:
+        inset 4px 3px 4px rgba(255, 190, 110, 0.2),
+        2px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.chip:nth-child(1) {
+    left: 20%;
+    top: 20%;
+    transform: rotate(20deg);
+}
+
+.chip:nth-child(2) {
+    left: 52%;
+    top: 16%;
+    transform: rotate(-15deg);
+    width: 38px;
+    height: 30px;
+}
+
+.chip:nth-child(3) {
+    left: 72%;
+    top: 35%;
+    transform: rotate(30deg);
+}
+
+.chip:nth-child(4) {
+    left: 34%;
+    top: 42%;
+    transform: rotate(-20deg);
+    width: 38px;
+    height: 31px;
+}
+
+.chip:nth-child(5) {
+    left: 65%;
+    top: 61%;
+    transform: rotate(15deg);
+}
+
+.chip:nth-child(6) {
+    left: 22%;
+    top: 68%;
+    transform: rotate(-30deg);
+    width: 37px;
+    height: 28px;
+}
+
+.chip:nth-child(7) {
+    left: 48%;
+    top: 78%;
+    transform: rotate(10deg);
+}
+
+.chip:nth-child(8) {
+    left: 78%;
+    top: 77%;
+    transform: rotate(-20deg);
+    width: 27px;
+    height: 23px;
+}
+
+.chip:nth-child(9) {
+    left: 10%;
+    top: 45%;
+    transform: rotate(25deg);
+    width: 27px;
+    height: 23px;
+}
+
+.click-hint {
+    margin-top: 10px;
+    padding: 12px 25px;
+    border-radius: 30px;
+    background: rgba(93, 48, 18, 0.7);
+    border: 2px solid #9b591e;
+    color: #ffd080;
+    font-weight: bold;
+}
+
+.shop {
+    background: rgba(31, 18, 11, 0.95);
+    border: 2px solid #71401c;
+    border-radius: 20px;
+    padding: 20px;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.5);
+
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
+}
+
+.shop h2 {
+    text-align: center;
+    margin: 5px 0 20px;
+    font-size: 32px;
+    color: #ffd06a;
+}
+
+.upgrade {
+    background: linear-gradient(
+        135deg,
+        #2b1a10,
+        #1c120d
+    );
+
+    border: 1px solid #70421f;
+    border-radius: 14px;
+
+    padding: 14px;
+    margin-bottom: 12px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    transition: transform 0.15s, border-color 0.15s;
+}
+
+.upgrade:hover {
+    transform: translateY(-2px);
+    border-color: #c57a29;
+}
+
+.upgrade-icon {
+    font-size: 38px;
+    width: 50px;
+    text-align: center;
+}
+
+.upgrade-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.upgrade-title {
+    font-size: 17px;
+    font-weight: bold;
+    color: #fff1d1;
+}
+
+.upgrade-description {
+    color: #b9a28d;
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+.upgrade-level {
+    color: #dca85b;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.buy-btn {
+    min-width: 82px;
+    padding: 10px 8px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: linear-gradient(
+        135deg,
+        #e9a52e,
+        #bb6817
+    );
+
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.buy-btn:hover {
+    filter: brightness(1.15);
+}
+
+.buy-btn:active {
+    transform: scale(0.95);
+}
+
+.buy-btn:disabled {
+    background: #4b4038;
+    color: #887c72;
+    cursor: not-allowed;
+}
+
+.cost {
+    display: block;
+    margin-top: 3px;
+    font-size: 12px;
+}
+
+.floating-number {
+    position: fixed;
+    pointer-events: none;
+
+    color: #ffe27c;
+    font-size: 27px;
+    font-weight: bold;
+
+    text-shadow: 0 2px 5px black;
+
+    animation: floatUp 0.9s ease-out forwards;
+
+    z-index: 1000;
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-90px) scale(1.25);
+    }
+}
+
+.particle {
+    position: fixed;
+    width: 9px;
+    height: 9px;
+
+    background: #ffd15c;
+    border-radius: 50%;
+
+    pointer-events: none;
+    z-index: 999;
+
+    animation: particleMove 0.7s ease-out forwards;
+}
+
+@keyframes particleMove {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform:
+            translate(var(--x), var(--y))
+            scale(0);
+    }
+}
+
+.reset-btn {
+    display: block;
+    margin: 20px auto 0;
+
+    padding: 10px 20px;
+
+    border: 1px solid #713322;
+    border-radius: 8px;
+
+    background: #451d18;
+    color: #d99d91;
+
+    cursor: pointer;
+}
+
+.reset-btn:hover {
+    background: #61241c;
+}
+
+.save-text {
+    text-align: center;
+    color: #6eaf68;
+    font-size: 12px;
+    margin-top: 12px;
+}
+
+.shop::-webkit-scrollbar {
+    width: 8px;
+}
+
+.shop::-webkit-scrollbar-track {
+    background: #170e09;
+}
+
+.shop::-webkit-scrollbar-thumb {
+    background: #6f401c;
+    border-radius: 10px;
+}
+
+/* SECRET BUTTON */
+
+#secretButton {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+
+    width: 20px;
+    height: 20px;
+
+    opacity: 0.03;
+
+    border: none;
+    background: white;
+
+    cursor: pointer;
+
+    z-index: 5000;
+}
+
+#secretButton:hover {
+    opacity: 0.15;
+}
+
+@media (max-width: 850px) {
 
     .game {
-        width: 100%;
-        max-width: 1200px;
-        min-height: 100vh;
-        margin: auto;
-        padding: 30px 20px;
-        display: grid;
-        grid-template-columns: 1fr 390px;
-        gap: 30px;
+        grid-template-columns: 1fr;
     }
 
-    /* =========================
-       LEFT SIDE
-    ========================= */
-
     .main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 700px;
-        text-align: center;
+        min-height: auto;
+    }
+
+    .shop {
+        max-height: none;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .game {
+        padding: 20px 12px;
     }
 
     h1 {
-        font-size: 55px;
-        margin: 0 0 10px;
-        color: #ffbd45;
-        text-shadow:
-            0 4px 0 #8c4518,
-            0 0 20px rgba(255, 174, 52, 0.3);
+        font-size: 40px;
     }
-
-    .subtitle {
-        color: #c9a98a;
-        margin-bottom: 20px;
-    }
-
-    /* =========================
-       SCORE
-    ========================= */
 
     #score {
-        font-size: 55px;
-        font-weight: bold;
-        color: #ffd66b;
-        text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+        font-size: 42px;
     }
-
-    #stats {
-        color: #c9b7a5;
-        font-size: 18px;
-        margin-bottom: 35px;
-    }
-
-    /* =========================
-       COOKIE
-    ========================= */
 
     .cookie-wrapper {
-        position: relative;
-        width: 350px;
-        height: 350px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        width: 300px;
+        height: 300px;
     }
 
     .cookie {
-        position: relative;
-        width: 310px;
-        height: 310px;
-        border-radius: 48% 52% 51% 49% / 51% 47% 53% 49%;
-
-        background:
-            radial-gradient(circle at 35% 25%, #ffd080 0 3%, transparent 4%),
-            radial-gradient(circle at 65% 70%, #b96b25 0 2%, transparent 3%),
-            radial-gradient(circle at 30% 70%, #e49a43 0 2%, transparent 3%),
-            linear-gradient(135deg, #d98732, #f3ad52 45%, #c87324);
-
-        border: 8px solid #8b471b;
-
-        box-shadow:
-            inset 15px 15px 25px rgba(255, 214, 135, 0.45),
-            inset -15px -18px 25px rgba(117, 49, 10, 0.35),
-            0 15px 35px rgba(0, 0, 0, 0.6);
-
-        cursor: pointer;
-
-        transition:
-            transform 0.08s ease,
-            filter 0.15s ease;
+        width: 260px;
+        height: 260px;
     }
-
-    .cookie:hover {
-        filter: brightness(1.08);
-    }
-
-    .cookie:active {
-        transform: scale(0.91);
-    }
-
-    .cookie.clicked {
-        animation: cookieBounce 0.15s ease;
-    }
-
-    @keyframes cookieBounce {
-        0% {
-            transform: scale(1);
-        }
-
-        50% {
-            transform: scale(0.88) rotate(-2deg);
-        }
-
-        100% {
-            transform: scale(1);
-        }
-    }
-
-    /* =========================
-       CHOCOLATE CHIPS
-    ========================= */
-
-    .chip {
-        position: absolute;
-        width: 32px;
-        height: 25px;
-        border-radius: 45%;
-        background: linear-gradient(135deg, #5b210e, #261006);
-        box-shadow:
-            inset 4px 3px 4px rgba(255, 190, 110, 0.2),
-            2px 4px 4px rgba(0, 0, 0, 0.25);
-    }
-
-    .chip:nth-child(1) {
-        left: 20%;
-        top: 20%;
-        transform: rotate(20deg);
-    }
-
-    .chip:nth-child(2) {
-        left: 52%;
-        top: 16%;
-        transform: rotate(-15deg);
-        width: 38px;
-        height: 30px;
-    }
-
-    .chip:nth-child(3) {
-        left: 72%;
-        top: 35%;
-        transform: rotate(30deg);
-    }
-
-    .chip:nth-child(4) {
-        left: 34%;
-        top: 42%;
-        transform: rotate(-20deg);
-        width: 38px;
-        height: 31px;
-    }
-
-    .chip:nth-child(5) {
-        left: 65%;
-        top: 61%;
-        transform: rotate(15deg);
-    }
-
-    .chip:nth-child(6) {
-        left: 22%;
-        top: 68%;
-        transform: rotate(-30deg);
-        width: 37px;
-        height: 28px;
-    }
-
-    .chip:nth-child(7) {
-        left: 48%;
-        top: 78%;
-        transform: rotate(10deg);
-    }
-
-    .chip:nth-child(8) {
-        left: 78%;
-        top: 77%;
-        transform: rotate(-20deg);
-        width: 27px;
-        height: 23px;
-    }
-
-    .chip:nth-child(9) {
-        left: 10%;
-        top: 45%;
-        transform: rotate(25deg);
-        width: 27px;
-        height: 23px;
-    }
-
-    /* =========================
-       CLICK MESSAGE
-    ========================= */
-
-    .click-hint {
-        margin-top: 10px;
-        padding: 12px 25px;
-        border-radius: 30px;
-        background: rgba(93, 48, 18, 0.7);
-        border: 2px solid #9b591e;
-        color: #ffd080;
-        font-weight: bold;
-    }
-
-    /* =========================
-       SHOP
-    ========================= */
-
-    .shop {
-        background: rgba(31, 18, 11, 0.95);
-        border: 2px solid #71401c;
-        border-radius: 20px;
-        padding: 20px;
-
-        box-shadow:
-            0 15px 40px rgba(0, 0, 0, 0.5);
-
-        max-height: calc(100vh - 60px);
-        overflow-y: auto;
-    }
-
-    .shop h2 {
-        text-align: center;
-        margin: 5px 0 20px;
-        font-size: 32px;
-        color: #ffd06a;
-    }
-
-    /* =========================
-       UPGRADE CARDS
-    ========================= */
 
     .upgrade {
-        background: linear-gradient(
-            135deg,
-            #2b1a10,
-            #1c120d
-        );
-
-        border: 1px solid #70421f;
-        border-radius: 14px;
-
-        padding: 14px;
-        margin-bottom: 12px;
-
-        display: flex;
-        align-items: center;
-        gap: 12px;
-
-        transition: transform 0.15s, border-color 0.15s;
-    }
-
-    .upgrade:hover {
-        transform: translateY(-2px);
-        border-color: #c57a29;
+        padding: 11px;
     }
 
     .upgrade-icon {
-        font-size: 38px;
-        width: 50px;
-        text-align: center;
+        font-size: 30px;
+        width: 40px;
     }
-
-    .upgrade-info {
-        flex: 1;
-        min-width: 0;
-    }
-
-    .upgrade-title {
-        font-size: 17px;
-        font-weight: bold;
-        color: #fff1d1;
-    }
-
-    .upgrade-description {
-        color: #b9a28d;
-        font-size: 13px;
-        margin-top: 3px;
-    }
-
-    .upgrade-level {
-        color: #dca85b;
-        font-size: 12px;
-        margin-top: 5px;
-    }
-
-    .buy-btn {
-        min-width: 82px;
-        padding: 10px 8px;
-
-        border: none;
-        border-radius: 9px;
-
-        background: linear-gradient(
-            135deg,
-            #e9a52e,
-            #bb6817
-        );
-
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
-
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    .buy-btn:hover {
-        filter: brightness(1.15);
-    }
-
-    .buy-btn:active {
-        transform: scale(0.95);
-    }
-
-    .buy-btn:disabled {
-        background: #4b4038;
-        color: #887c72;
-        cursor: not-allowed;
-    }
-
-    .cost {
-        display: block;
-        margin-top: 3px;
-        font-size: 12px;
-    }
-
-    /* =========================
-       FLOATING NUMBERS
-    ========================= */
-
-    .floating-number {
-        position: fixed;
-        pointer-events: none;
-
-        color: #ffe27c;
-        font-size: 27px;
-        font-weight: bold;
-
-        text-shadow:
-            0 2px 5px black;
-
-        animation: floatUp 0.9s ease-out forwards;
-
-        z-index: 1000;
-    }
-
-    @keyframes floatUp {
-        0% {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        100% {
-            opacity: 0;
-            transform: translateY(-90px) scale(1.25);
-        }
-    }
-
-    /* =========================
-       PARTICLES
-    ========================= */
-
-    .particle {
-        position: fixed;
-        width: 9px;
-        height: 9px;
-
-        background: #ffd15c;
-        border-radius: 50%;
-
-        pointer-events: none;
-        z-index: 999;
-
-        animation: particleMove 0.7s ease-out forwards;
-    }
-
-    @keyframes particleMove {
-        0% {
-            opacity: 1;
-            transform: translate(0, 0) scale(1);
-        }
-
-        100% {
-            opacity: 0;
-            transform:
-                translate(
-                    var(--x),
-                    var(--y)
-                )
-                scale(0);
-        }
-    }
-
-    /* =========================
-       RESET
-    ========================= */
-
-    .reset-btn {
-        display: block;
-        margin: 20px auto 0;
-
-        padding: 10px 20px;
-
-        border: 1px solid #713322;
-        border-radius: 8px;
-
-        background: #451d18;
-        color: #d99d91;
-
-        cursor: pointer;
-    }
-
-    .reset-btn:hover {
-        background: #61241c;
-    }
-
-    .save-text {
-        text-align: center;
-        color: #6eaf68;
-        font-size: 12px;
-        margin-top: 12px;
-    }
-
-    /* =========================
-       SCROLLBAR
-    ========================= */
-
-    .shop::-webkit-scrollbar {
-        width: 8px;
-    }
-
-    .shop::-webkit-scrollbar-track {
-        background: #170e09;
-    }
-
-    .shop::-webkit-scrollbar-thumb {
-        background: #6f401c;
-        border-radius: 10px;
-    }
-
-    /* =========================
-       MOBILE
-    ========================= */
-
-    @media (max-width: 850px) {
-
-        .game {
-            grid-template-columns: 1fr;
-        }
-
-        .main {
-            min-height: auto;
-        }
-
-        .shop {
-            max-height: none;
-        }
-    }
-
-    @media (max-width: 500px) {
-
-        .game {
-            padding: 20px 12px;
-        }
-
-        h1 {
-            font-size: 40px;
-        }
-
-        #score {
-            font-size: 42px;
-        }
-
-        .cookie-wrapper {
-            width: 300px;
-            height: 300px;
-        }
-
-        .cookie {
-            width: 260px;
-            height: 260px;
-        }
-
-        .upgrade {
-            padding: 11px;
-        }
-
-        .upgrade-icon {
-            font-size: 30px;
-            width: 40px;
-        }
-    }
+}
 </style>
 </head>
 
 <body>
 
 <div class="game">
-
-    <!-- =========================
-         MAIN GAME
-    ========================= -->
 
     <main class="main">
 
@@ -578,16 +545,10 @@
     </main>
 
 
-    <!-- =========================
-         SHOP
-    ========================= -->
-
     <aside class="shop">
 
         <h2>🛒 SHOP</h2>
 
-
-        <!-- STRONGER CLICKS -->
 
         <div class="upgrade">
 
@@ -617,8 +578,6 @@
         </div>
 
 
-        <!-- DOUBLE CLICK -->
-
         <div class="upgrade">
 
             <div class="upgrade-icon">🖱️</div>
@@ -646,8 +605,6 @@
 
         </div>
 
-
-        <!-- GRANDMA -->
 
         <div class="upgrade">
 
@@ -677,8 +634,6 @@
         </div>
 
 
-        <!-- FACTORY -->
-
         <div class="upgrade">
 
             <div class="upgrade-icon">🏭</div>
@@ -706,8 +661,6 @@
 
         </div>
 
-
-        <!-- MINE -->
 
         <div class="upgrade">
 
@@ -737,8 +690,6 @@
         </div>
 
 
-        <!-- PORTAL -->
-
         <div class="upgrade">
 
             <div class="upgrade-icon">🌀</div>
@@ -767,8 +718,6 @@
         </div>
 
 
-        <!-- TIME MACHINE -->
-
         <div class="upgrade">
 
             <div class="upgrade-icon">⏰</div>
@@ -796,8 +745,6 @@
 
         </div>
 
-
-        <!-- COOKIE GOD -->
 
         <div class="upgrade">
 
@@ -840,560 +787,502 @@
 </div>
 
 
+<!-- SECRET TEST BUTTON -->
+<button id="secretButton" title="Test Button"></button>
+
+
 <script>
 
-    /* =====================================
-       GAME DATA
-    ===================================== */
+/* =====================================
+   GAME DATA
+===================================== */
 
-    let score =
-        Number(localStorage.getItem("cookie_score")) || 0;
+let score =
+    Number(localStorage.getItem("cookie_score")) || 0;
 
-    let clickPower =
-        Number(localStorage.getItem("cookie_clickPower")) || 1;
+let clickPower =
+    Number(localStorage.getItem("cookie_clickPower")) || 1;
 
-    let autoClickRate =
-        Number(localStorage.getItem("cookie_autoRate")) || 0;
-
-
-    /* =====================================
-       UPGRADE DATA
-    ===================================== */
-
-    const upgrades = {
-
-        power: {
-            level: Number(localStorage.getItem("powerLevel")) || 0,
-            cost: Number(localStorage.getItem("powerCost")) || 10,
-            increase: 1,
-            multiplier: 1.5
-        },
-
-        double: {
-            level: Number(localStorage.getItem("doubleLevel")) || 0,
-            cost: Number(localStorage.getItem("doubleCost")) || 100,
-            increase: 5,
-            multiplier: 1.6
-        },
-
-        grandma: {
-            level: Number(localStorage.getItem("grandmaLevel")) || 0,
-            cost: Number(localStorage.getItem("grandmaCost")) || 500,
-            increase: 1,
-            multiplier: 1.5
-        },
-
-        factory: {
-            level: Number(localStorage.getItem("factoryLevel")) || 0,
-            cost: Number(localStorage.getItem("factoryCost")) || 5000,
-            increase: 10,
-            multiplier: 1.55
-        },
-
-        mine: {
-            level: Number(localStorage.getItem("mineLevel")) || 0,
-            cost: Number(localStorage.getItem("mineCost")) || 50000,
-            increase: 50,
-            multiplier: 1.6
-        },
-
-        portal: {
-            level: Number(localStorage.getItem("portalLevel")) || 0,
-            cost: Number(localStorage.getItem("portalCost")) || 500000,
-            increase: 250,
-            multiplier: 1.65
-        },
-
-        time: {
-            level: Number(localStorage.getItem("timeLevel")) || 0,
-            cost: Number(localStorage.getItem("timeCost")) || 5000000,
-            increase: 1000,
-            multiplier: 1.7
-        },
-
-        god: {
-            level: Number(localStorage.getItem("godLevel")) || 0,
-            cost: Number(localStorage.getItem("godCost")) || 50000000,
-            increase: 10000,
-            multiplier: 1.75
-        }
-
-    };
+let autoClickRate =
+    Number(localStorage.getItem("cookie_autoRate")) || 0;
 
 
-    /* =====================================
-       NUMBER FORMATTING
-    ===================================== */
+/* =====================================
+   UPGRADE DATA
+===================================== */
 
-    function formatNumber(number) {
+const upgrades = {
 
-        if (number < 1000) {
-            return Math.floor(number).toString();
-        }
+    power: {
+        level: Number(localStorage.getItem("powerLevel")) || 0,
+        cost: Number(localStorage.getItem("powerCost")) || 10,
+        increase: 1,
+        multiplier: 1.5
+    },
 
-        if (number < 1000000) {
-            return (number / 1000).toFixed(1) + "K";
-        }
+    double: {
+        level: Number(localStorage.getItem("doubleLevel")) || 0,
+        cost: Number(localStorage.getItem("doubleCost")) || 100,
+        increase: 5,
+        multiplier: 1.6
+    },
 
-        if (number < 1000000000) {
-            return (number / 1000000).toFixed(1) + "M";
-        }
+    grandma: {
+        level: Number(localStorage.getItem("grandmaLevel")) || 0,
+        cost: Number(localStorage.getItem("grandmaCost")) || 500,
+        increase: 1,
+        multiplier: 1.5
+    },
 
-        if (number < 1000000000000) {
-            return (number / 1000000000).toFixed(1) + "B";
-        }
+    factory: {
+        level: Number(localStorage.getItem("factoryLevel")) || 0,
+        cost: Number(localStorage.getItem("factoryCost")) || 5000,
+        increase: 10,
+        multiplier: 1.55
+    },
 
-        if (number < 1000000000000000) {
-            return (number / 1000000000000).toFixed(1) + "T";
-        }
+    mine: {
+        level: Number(localStorage.getItem("mineLevel")) || 0,
+        cost: Number(localStorage.getItem("mineCost")) || 50000,
+        increase: 50,
+        multiplier: 1.6
+    },
 
-        return number.toExponential(2);
+    portal: {
+        level: Number(localStorage.getItem("portalLevel")) || 0,
+        cost: Number(localStorage.getItem("portalCost")) || 500000,
+        increase: 250,
+        multiplier: 1.65
+    },
+
+    time: {
+        level: Number(localStorage.getItem("timeLevel")) || 0,
+        cost: Number(localStorage.getItem("timeCost")) || 5000000,
+        increase: 1000,
+        multiplier: 1.7
+    },
+
+    god: {
+        level: Number(localStorage.getItem("godLevel")) || 0,
+        cost: Number(localStorage.getItem("godCost")) || 50000000,
+        increase: 10000,
+        multiplier: 1.75
     }
 
+};
 
-    /* =====================================
-       SAVE GAME
-    ===================================== */
 
-    function saveGame() {
+/* =====================================
+   NUMBER FORMAT
+===================================== */
+
+function formatNumber(number) {
+
+    if (number < 1000) {
+        return Math.floor(number).toString();
+    }
+
+    if (number < 1000000) {
+        return (number / 1000).toFixed(1) + "K";
+    }
+
+    if (number < 1000000000) {
+        return (number / 1000000).toFixed(1) + "M";
+    }
+
+    if (number < 1000000000000) {
+        return (number / 1000000000).toFixed(1) + "B";
+    }
+
+    if (number < 1000000000000000) {
+        return (number / 1000000000000).toFixed(1) + "T";
+    }
+
+    return number.toExponential(2);
+}
+
+
+/* =====================================
+   SAVE
+===================================== */
+
+function saveGame() {
+
+    localStorage.setItem(
+        "cookie_score",
+        score
+    );
+
+    localStorage.setItem(
+        "cookie_clickPower",
+        clickPower
+    );
+
+    localStorage.setItem(
+        "cookie_autoRate",
+        autoClickRate
+    );
+
+    for (const name in upgrades) {
 
         localStorage.setItem(
-            "cookie_score",
-            score
+            name + "Level",
+            upgrades[name].level
         );
 
         localStorage.setItem(
-            "cookie_clickPower",
-            clickPower
-        );
-
-        localStorage.setItem(
-            "cookie_autoRate",
-            autoClickRate
-        );
-
-        for (const name in upgrades) {
-
-            localStorage.setItem(
-                name + "Level",
-                upgrades[name].level
-            );
-
-            localStorage.setItem(
-                name + "Cost",
-                upgrades[name].cost
-            );
-        }
-    }
-
-
-    /* =====================================
-       UPDATE DISPLAY
-    ===================================== */
-
-    function updateDisplay() {
-
-        document.getElementById("score").textContent =
-            formatNumber(score);
-
-        document.getElementById("stats").textContent =
-            `Per Click: ${formatNumber(clickPower)} | Per Second: ${formatNumber(autoClickRate)}`;
-
-
-        updateUpgrade(
-            "power",
-            "powerBtn",
-            "powerCost",
-            "powerLevel"
-        );
-
-        updateUpgrade(
-            "double",
-            "doubleBtn",
-            "doubleCost",
-            "doubleLevel"
-        );
-
-        updateUpgrade(
-            "grandma",
-            "grandmaBtn",
-            "grandmaCost",
-            "grandmaLevel"
-        );
-
-        updateUpgrade(
-            "factory",
-            "factoryBtn",
-            "factoryCost",
-            "factoryLevel"
-        );
-
-        updateUpgrade(
-            "mine",
-            "mineBtn",
-            "mineCost",
-            "mineLevel"
-        );
-
-        updateUpgrade(
-            "portal",
-            "portalBtn",
-            "portalCost",
-            "portalLevel"
-        );
-
-        updateUpgrade(
-            "time",
-            "timeBtn",
-            "timeCost",
-            "timeLevel"
-        );
-
-        updateUpgrade(
-            "god",
-            "godBtn",
-            "godCost",
-            "godLevel"
+            name + "Cost",
+            upgrades[name].cost
         );
     }
+}
 
 
-    function updateUpgrade(
-        name,
-        buttonId,
-        costId,
-        levelId
-    ) {
+/* =====================================
+   DISPLAY
+===================================== */
 
-        const upgrade = upgrades[name];
+function updateDisplay() {
 
-        document.getElementById(costId).textContent =
-            formatNumber(upgrade.cost);
+    document.getElementById("score").textContent =
+        formatNumber(score);
 
-        document.getElementById(levelId).textContent =
-            "Level " + upgrade.level;
+    document.getElementById("stats").textContent =
+        `Per Click: ${formatNumber(clickPower)} | Per Second: ${formatNumber(autoClickRate)}`;
 
-        document.getElementById(buttonId).disabled =
-            score < upgrade.cost;
-    }
+    updateUpgrade("power", "powerBtn", "powerCost", "powerLevel");
+    updateUpgrade("double", "doubleBtn", "doubleCost", "doubleLevel");
+    updateUpgrade("grandma", "grandmaBtn", "grandmaCost", "grandmaLevel");
+    updateUpgrade("factory", "factoryBtn", "factoryCost", "factoryLevel");
+    updateUpgrade("mine", "mineBtn", "mineCost", "mineLevel");
+    updateUpgrade("portal", "portalBtn", "portalCost", "portalLevel");
+    updateUpgrade("time", "timeBtn", "timeCost", "timeLevel");
+    updateUpgrade("god", "godBtn", "godCost", "godLevel");
+}
 
 
-    /* =====================================
-       COOKIE CLICK
-    ===================================== */
+function updateUpgrade(
+    name,
+    buttonId,
+    costId,
+    levelId
+) {
 
-    function clickCookie(event) {
+    const upgrade = upgrades[name];
 
-        score += clickPower;
+    document.getElementById(costId).textContent =
+        formatNumber(upgrade.cost);
 
-        createFloatingNumber(
-            "+" + formatNumber(clickPower),
-            event.clientX,
-            event.clientY
-        );
+    document.getElementById(levelId).textContent =
+        "Level " + upgrade.level;
 
-        createParticles(
-            event.clientX,
-            event.clientY
-        );
+    document.getElementById(buttonId).disabled =
+        score < upgrade.cost;
+}
 
-        const cookie =
-            document.getElementById("cookie");
 
-        cookie.classList.remove("clicked");
+/* =====================================
+   COOKIE CLICK
+===================================== */
 
-        void cookie.offsetWidth;
+function clickCookie(event) {
 
-        cookie.classList.add("clicked");
+    score += clickPower;
 
-        updateDisplay();
-        saveGame();
-    }
+    createFloatingNumber(
+        "+" + formatNumber(clickPower),
+        event.clientX,
+        event.clientY
+    );
 
+    createParticles(
+        event.clientX,
+        event.clientY
+    );
 
-    /* =====================================
-       FLOATING NUMBER
-    ===================================== */
+    const cookie =
+        document.getElementById("cookie");
 
-    function createFloatingNumber(
-        text,
-        x,
-        y
-    ) {
+    cookie.classList.remove("clicked");
 
-        const number =
-            document.createElement("div");
+    void cookie.offsetWidth;
 
-        number.className =
-            "floating-number";
-
-        number.textContent =
-            text;
-
-        number.style.left =
-            x + "px";
-
-        number.style.top =
-            y + "px";
-
-        document.body.appendChild(number);
-
-        setTimeout(() => {
-            number.remove();
-        }, 900);
-    }
-
-
-    /* =====================================
-       PARTICLES
-    ===================================== */
-
-    function createParticles(x, y) {
-
-        for (let i = 0; i < 7; i++) {
-
-            const particle =
-                document.createElement("div");
-
-            particle.className =
-                "particle";
-
-            particle.style.left =
-                x + "px";
-
-            particle.style.top =
-                y + "px";
-
-            const angle =
-                Math.random() * Math.PI * 2;
-
-            const distance =
-                30 + Math.random() * 60;
-
-            particle.style.setProperty(
-                "--x",
-                Math.cos(angle) * distance + "px"
-            );
-
-            particle.style.setProperty(
-                "--y",
-                Math.sin(angle) * distance + "px"
-            );
-
-            document.body.appendChild(particle);
-
-            setTimeout(() => {
-                particle.remove();
-            }, 700);
-        }
-    }
-
-
-    /* =====================================
-       BUY UPGRADE
-    ===================================== */
-
-    function buyUpgrade(name) {
-
-        const upgrade =
-            upgrades[name];
-
-        if (score < upgrade.cost) {
-            return;
-        }
-
-        score -= upgrade.cost;
-
-        upgrade.level++;
-
-        if (name === "power") {
-
-            clickPower +=
-                upgrade.increase;
-        }
-
-        else if (name === "double") {
-
-            clickPower +=
-                upgrade.increase;
-        }
-
-        else {
-
-            autoClickRate +=
-                upgrade.increase;
-        }
-
-        upgrade.cost =
-            Math.floor(
-                upgrade.cost *
-                upgrade.multiplier
-            );
-
-        updateDisplay();
-        saveGame();
-    }
-
-
-    /* =====================================
-       AUTO CLICKER
-    ===================================== */
-
-    setInterval(() => {
-
-        if (autoClickRate > 0) {
-
-            score += autoClickRate;
-
-            updateDisplay();
-            saveGame();
-        }
-
-    }, 1000);
-
-
-    /* =====================================
-       RESET
-    ===================================== */
-
-    function resetGame() {
-
-        const confirmed =
-            confirm(
-                "Are you sure you want to delete your cookie empire?"
-            );
-
-        if (!confirmed) {
-            return;
-        }
-
-        localStorage.clear();
-
-        location.reload();
-    }
-
-
-    /* =====================================
-       BUTTON CONNECTIONS
-    ===================================== */
-
-    document
-        .getElementById("cookie")
-        .addEventListener(
-            "click",
-            clickCookie
-        );
-
-
-    document
-        .getElementById("powerBtn")
-        .addEventListener(
-            "click",
-            () => buyUpgrade("power")
-        );
-
-
-    document
-        .getElementById("doubleBtn")
-        .addEventListener(
-            "click",
-            () => buyUpgrade("double")
-        );
-
-
-    document
-        .getElementById("grandmaBtn")
-        .addEventListener(
-            "click",
-            () => buyUpgrade("grandma")
-        );
-
-
-    document
-        .getElementById("factoryBtn")
-        .addEventListener(
-            "click",
-            () => buyUpgrade("factory")
-        );
-
-
-    document
-        .getElementById("mineBtn")
-        .addEventListener(
-            "click",
-            () => buyUpgrade("mine")
-        );
-
-
-    document
-        .getElementById("portalBtn")
-        .addEventListener(
-            "click",
-            () => buyUpgrade("portal")
-        );
-
-
-    document
-        .getElementById("timeBtn")
-        .addEventListener(
-            "click",
-            () => buyUpgrade("time")
-        );
-
-
-    document
-        .getElementById("godBtn")
-        .addEventListener(
-            "click",
-            () => buyUpgrade("god")
-        );
-
-
-    document
-        .getElementById("resetBtn")
-        .addEventListener(
-            "click",
-            resetGame
-        );
-
-
-    /* =====================================
-       START
-    ===================================== */
-
-   updateDisplay();
-
-
-// SECRET TEST CHEAT
-document.getElementById("secretButton").addEventListener("click", () => {
-    score += 500000000;
+    cookie.classList.add("clicked");
 
     updateDisplay();
     saveGame();
+}
 
-    createFloatingNumber(
-        "+500M 🍪",
-        window.innerWidth / 2,
-        window.innerHeight / 2
+
+/* =====================================
+   FLOATING NUMBER
+===================================== */
+
+function createFloatingNumber(text, x, y) {
+
+    const number =
+        document.createElement("div");
+
+    number.className =
+        "floating-number";
+
+    number.textContent =
+        text;
+
+    number.style.left =
+        x + "px";
+
+    number.style.top =
+        y + "px";
+
+    document.body.appendChild(number);
+
+    setTimeout(() => {
+        number.remove();
+    }, 900);
+}
+
+
+/* =====================================
+   PARTICLES
+===================================== */
+
+function createParticles(x, y) {
+
+    for (let i = 0; i < 7; i++) {
+
+        const particle =
+            document.createElement("div");
+
+        particle.className =
+            "particle";
+
+        particle.style.left =
+            x + "px";
+
+        particle.style.top =
+            y + "px";
+
+        const angle =
+            Math.random() * Math.PI * 2;
+
+        const distance =
+            30 + Math.random() * 60;
+
+        particle.style.setProperty(
+            "--x",
+            Math.cos(angle) * distance + "px"
+        );
+
+        particle.style.setProperty(
+            "--y",
+            Math.sin(angle) * distance + "px"
+        );
+
+        document.body.appendChild(particle);
+
+        setTimeout(() => {
+            particle.remove();
+        }, 700);
+    }
+}
+
+
+/* =====================================
+   BUY UPGRADE
+===================================== */
+
+function buyUpgrade(name) {
+
+    const upgrade =
+        upgrades[name];
+
+    if (score < upgrade.cost) {
+        return;
+    }
+
+    score -= upgrade.cost;
+
+    upgrade.level++;
+
+    if (
+        name === "power" ||
+        name === "double"
+    ) {
+
+        clickPower +=
+            upgrade.increase;
+
+    } else {
+
+        autoClickRate +=
+            upgrade.increase;
+    }
+
+    upgrade.cost =
+        Math.floor(
+            upgrade.cost *
+            upgrade.multiplier
+        );
+
+    updateDisplay();
+    saveGame();
+}
+
+
+/* =====================================
+   AUTO CLICKER
+===================================== */
+
+setInterval(() => {
+
+    if (autoClickRate > 0) {
+
+        score += autoClickRate;
+
+        updateDisplay();
+        saveGame();
+    }
+
+}, 1000);
+
+
+/* =====================================
+   RESET
+===================================== */
+
+function resetGame() {
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete your cookie empire?"
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    localStorage.clear();
+
+    location.reload();
+}
+
+
+/* =====================================
+   BUTTONS
+===================================== */
+
+document
+    .getElementById("cookie")
+    .addEventListener(
+        "click",
+        clickCookie
     );
-});
+
+
+document
+    .getElementById("powerBtn")
+    .addEventListener(
+        "click",
+        () => buyUpgrade("power")
+    );
+
+
+document
+    .getElementById("doubleBtn")
+    .addEventListener(
+        "click",
+        () => buyUpgrade("double")
+    );
+
+
+document
+    .getElementById("grandmaBtn")
+    .addEventListener(
+        "click",
+        () => buyUpgrade("grandma")
+    );
+
+
+document
+    .getElementById("factoryBtn")
+    .addEventListener(
+        "click",
+        () => buyUpgrade("factory")
+    );
+
+
+document
+    .getElementById("mineBtn")
+    .addEventListener(
+        "click",
+        () => buyUpgrade("mine")
+    );
+
+
+document
+    .getElementById("portalBtn")
+    .addEventListener(
+        "click",
+        () => buyUpgrade("portal")
+    );
+
+
+document
+    .getElementById("timeBtn")
+    .addEventListener(
+        "click",
+        () => buyUpgrade("time")
+    );
+
+
+document
+    .getElementById("godBtn")
+    .addEventListener(
+        "click",
+        () => buyUpgrade("god")
+    );
+
+
+document
+    .getElementById("resetBtn")
+    .addEventListener(
+        "click",
+        resetGame
+    );
+
+
+/* =====================================
+   SECRET 500 MILLION TEST BUTTON
+===================================== */
+
+document
+    .getElementById("secretButton")
+    .addEventListener("click", () => {
+
+        score += 500000000;
+
+        updateDisplay();
+        saveGame();
+
+        createFloatingNumber(
+            "+500M 🍪",
+            window.innerWidth / 2,
+            window.innerHeight / 2
+        );
+
+    });
+
+
+/* =====================================
+   START
+===================================== */
+
+updateDisplay();
 
 </script>
 
-   <button id="secretButton" style="
-    position: fixed;
-    bottom: 10px;
-    left: 10px;
-    opacity: 0.03;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    border: none;
-    background: white;
-">
-</button>
-
 </body>
 </html>
-
+```
 insert text here
