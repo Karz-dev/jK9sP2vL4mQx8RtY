@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Clicker Game</title>
+    <title>Clicker Game with Upgrades</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -13,51 +13,154 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
         }
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin-bottom: 0.5rem;
             color: #38bdf8;
         }
         #score {
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: bold;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             color: #facc15;
+        }
+        #stats {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
         }
         .click-btn {
             background-color: #38bdf8;
             color: #0f172a;
             border: none;
-            padding: 1.5rem 3rem;
-            font-size: 1.5rem;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.3rem;
             font-weight: bold;
             border-radius: 12px;
             cursor: pointer;
             transition: transform 0.1s ease, background-color 0.2s ease;
             box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);
+            margin-bottom: 2rem;
         }
         .click-btn:active {
             transform: scale(0.95);
             background-color: #0ea5e9;
         }
+        .shop {
+            background: rgba(30, 41, 59, 0.7);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 320px;
+        }
+        .shop h2 {
+            font-size: 1.2rem;
+            color: #38bdf8;
+            text-align: center;
+            margin-bottom: 0.2rem;
+        }
+        .upgrade-btn {
+            background-color: #1e293b;
+            color: #f8fafc;
+            border: 1px solid #38bdf8;
+            padding: 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+        .upgrade-btn:hover:not(:disabled) {
+            background-color: #38bdf8;
+            color: #0f172a;
+        }
+        .upgrade-btn:disabled {
+            border-color: #64748b;
+            color: #64748b;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
 
-    <h1>Cookie Clicker Style</h1>
+    <h1>Clicker Game</h1>
     <div id="score">0</div>
-    <button class="click-btn" onclick="incrementScore()">Click Me!</button>
+    <div id="stats">Per Click: 1 | Per Second: 0</div>
+    
+    <button class="click-btn" onclick="clicked()">Click Me!</button>
+
+    <div class="shop">
+        <h2>Shop</h2>
+        <button id="powerBtn" class="upgrade-btn" onclick="buyPowerUpgrade()">
+            <span>Stronger Clicks (+1)</span>
+            <span id="powerCost">Cost: 10</span>
+        </button>
+        <button id="autoBtn" class="upgrade-btn" onclick="buyAutoUpgrade()">
+            <span>Auto Clicker (+1/s)</span>
+            <span id="autoCost">Cost: 50</span>
+        </button>
+    </div>
 
     <script>
         let score = 0;
+        let clickPower = 1;
+        let autoClickRate = 0;
 
-        function incrementScore() {
-            score++;
-            document.getElementById('score').innerText = score;
+        let powerCost = 10;
+        let autoCost = 50;
+
+        function clicked() {
+            score += clickPower;
+            updateDisplay();
         }
+
+        function buyPowerUpgrade() {
+            if (score >= powerCost) {
+                score -= powerCost;
+                clickPower += 1;
+                powerCost = Math.floor(powerCost * 1.5);
+                updateDisplay();
+            }
+        }
+
+        function buyAutoUpgrade() {
+            if (score >= autoCost) {
+                score -= autoCost;
+                autoClickRate += 1;
+                autoCost = Math.floor(autoCost * 1.7);
+                updateDisplay();
+            }
+        }
+
+        // Auto clicker loop running every second
+        setInterval(function() {
+            if (autoClickRate > 0) {
+                score += autoClickRate;
+                updateDisplay();
+            }
+        }, 1000);
+
+        function updateDisplay() {
+            document.getElementById('score').innerText = score;
+            document.getElementById('stats').innerText = `Per Click: ${clickPower} | Per Second: ${autoClickRate}`;
+            
+            document.getElementById('powerCost').innerText = `Cost: ${powerCost}`;
+            document.getElementById('autoCost').innerText = `Cost: ${autoCost}`;
+
+            document.getElementById('powerBtn').disabled = score < powerCost;
+            document.getElementById('autoBtn').disabled = score < autoCost;
+        }
+
+        // Initial check to disable buttons at start
+        updateDisplay();
     </script>
 
 </body>
