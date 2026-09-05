@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Clicker Game</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #38bdf8;
+        }
+        #score {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            color: #facc15;
+        }
+        .click-btn {
+            background-color: #38bdf8;
+            color: #0f172a;
+            border: none;
+            padding: 1.5rem 3rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.1s ease, background-color 0.2s ease;
+            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);
+        }
+        .click-btn:active {
+            transform: scale(0.95);
+            background-color: #0ea5e9;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Cookie Clicker Style</h1>
+    <div id="score">0</div>
+    <button class="click-btn" onclick="incrementScore()">Click Me!</button>
+
+    <script>
+        let score = 0;
+
+        function incrementScore() {
+            score++;
+            document.getElementById('score').innerText = score;
+        }
+    </script>
+
+</body>
+</html>
