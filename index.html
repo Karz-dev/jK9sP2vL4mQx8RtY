@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clicker Game with Floating Numbers</title>
+    <title>Clicker Game</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -88,6 +88,7 @@
             border-color: #64748b;
             color: #64748b;
             cursor: not-allowed;
+            opacity: 0.6;
         }
         .floating-number {
             position: absolute;
@@ -120,8 +121,83 @@
 
     <div class="shop">
         <h2>Shop</h2>
-        <button id="powerBtn" class="upgrade-btn" onclick="buyPowerUpgrade
+        <button id="powerBtn" class="upgrade-btn" onclick="buyPowerUpgrade()">
+            <span>Stronger Clicks (+1)</span>
+            <span id="powerCost">Cost: 10</span>
+        </button>
+        <button id="autoBtn" class="upgrade-btn" onclick="buyAutoUpgrade()">
+            <span>Auto Clicker (+1/s)</span>
+            <span id="autoCost">Cost: 50</span>
+        </button>
+    </div>
 
-insert random phase
+    <script>
+        let score = 0;
+        let clickPower = 1;
+        let autoClickRate = 0;
 
+        let powerCost = 10;
+        let autoCost = 50;
 
+        function clicked(event) {
+            score += clickPower;
+            
+            if (event && event.clientX) {
+                let floatText = document.createElement('div');
+                floatText.className = 'floating-number';
+                floatText.innerText = `+${clickPower}`;
+                floatText.style.left = (event.clientX - 10 + Math.random() * 20) + 'px';
+                floatText.style.top = (event.clientY - 20) + 'px';
+                document.body.appendChild(floatText);
+
+                setTimeout(() => {
+                    floatText.remove();
+                }, 800);
+            }
+
+            updateDisplay();
+        }
+
+        function buyPowerUpgrade() {
+            if (score >= powerCost) {
+                score -= powerCost;
+                clickPower += 1;
+                powerCost = Math.floor(powerCost * 1.5);
+                updateDisplay();
+            }
+        }
+
+        function buyAutoUpgrade() {
+            if (score >= autoCost) {
+                score -= autoCost;
+                autoClickRate += 1;
+                autoCost = Math.floor(autoCost * 1.7);
+                updateDisplay();
+            }
+        }
+
+        setInterval(function() {
+            if (autoClickRate > 0) {
+                score += autoClickRate;
+                updateDisplay();
+            }
+        }, 1000);
+
+        function updateDisplay() {
+            document.getElementById('score').innerText = score;
+            document.getElementById('stats').innerText = `Per Click: ${clickPower} | Per Second: ${autoClickRate}`;
+            
+            document.getElementById('powerCost').innerText = `Cost: ${powerCost}`;
+            document.getElementById('autoCost').innerText = `Cost: ${autoCost}`;
+
+            document.getElementById('powerBtn').disabled = score < powerCost;
+            document.getElementById('autoBtn').disabled = score < autoCost;
+        }
+
+        updateDisplay();
+    </script>
+
+</body>
+</html>
+
+insert random text
