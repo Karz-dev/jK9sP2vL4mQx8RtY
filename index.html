@@ -1361,7 +1361,22 @@
        START
     ===================================== */
 
+   updateDisplay();
+
+
+// SECRET TEST CHEAT
+document.getElementById("secretButton").addEventListener("click", () => {
+    score += 500000000;
+
     updateDisplay();
+    saveGame();
+
+    createFloatingNumber(
+        "+500M 🍪",
+        window.innerWidth / 2,
+        window.innerHeight / 2
+    );
+});
 
 </script>
 
